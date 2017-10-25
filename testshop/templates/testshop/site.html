@@ -1,0 +1,53 @@
+<html>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>TestShop</title>
+     {% load static %}
+    <meta name="keywords" content="">
+    {% block blockdd %}
+        <!-- <script type="text/javascript" src="/static/js/jquery-3.2.1.min.js"></script> -->
+       
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" href="{% static "css/styles.css"%}"  type="text/css">
+        <link rel="stylesheet" href="{% static "css/print.css"%}" media="print"  type="text/css">
+    {% endblock %}
+    {% block js %}
+
+
+    {% endblock %}
+  </head>
+  <body>
+    <div class="site">
+     <div class="site-inner">
+      <div class="head">
+        <div style="float: right;"> </div>
+          <div id="logo">
+              {% block logo %}
+
+              {% endblock %}
+          </div>
+          <div id="stuff"> 
+            {% block stuff %} 
+
+            {% endblock %}
+          <div id="haupt_menu">
+            {% block menu %}
+            <div id='cssmenu'>
+              <ul>
+                <li {% if request.path == "/products_list" %} class="active" {% endif %}><a href=/products_list><span>Список товаров</span></a></li>
+              </ul>
+              <hr class="delim">
+            </div>
+            {% endblock %}
+            {% block submenu %}
+            {% endblock %}
+          </div>        
+      </div>
+    </div>
+      <div class="content"> 
+          {% block content %}
+          {% endblock %}  
+      </div> 
+    </div>
+  </body>
+</html>

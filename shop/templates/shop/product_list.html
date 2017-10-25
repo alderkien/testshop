@@ -1,0 +1,10 @@
+{% extends 'testshop/site.html' %}
+{% block content %}
+<ul>
+{% for product in object_list %}
+    <li>{{ product.name }}</li>
+{% empty %}
+    <li>No products yet.</li>
+{% endfor %}
+</ul>
+{% endblock%}

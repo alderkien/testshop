@@ -1,0 +1,181 @@
+body {
+	background: #fafafa;
+}
+*{
+	color: black;
+}
+hr.delim{
+	color: #aaaaaa;
+}
+
+.select2-container,.select2-container.select2-container-multi{
+  width: 400px;
+}
+
+#login-wrap{
+	position: static;
+	top: 3px;
+	left: 3px;
+	float: right;
+	z-index: 2;
+}
+
+.treediv{
+  padding-left: 20px;
+  border-left: 1px solid grey;
+}
+
+
+.hidden{
+  display: none;
+}
+
+.pactable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.pactable td, .pactable th{
+  border: 1px solid grey;
+}
+
+.pactable *{
+  vertical-align: top;
+}
+
+div.site {
+  max-width: 75%;
+  min-width: 960px;
+  height: 100%;
+  margin: 0 auto; 
+}
+
+div.site-inner {
+  min-width: 960px;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0;
+  min-height: 100%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
+  padding: 5px;
+  }
+
+#cssmenu {
+  width: auto;
+  margin: 2px 0;
+}
+#cssmenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  display: block;
+}
+
+#cssmenu ul li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+#cssmenu ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  padding: 15px 25px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  position: relative;
+  -webkit-transition: color .25s;
+  -moz-transition: color .25s;
+  -ms-transition: color .25s;
+  -o-transition: color .25s;
+  transition: color .25s;
+}
+
+#cssmenu ul li a:after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -3px;
+  top: 19px;
+  height: 6px;
+  width: 6px;
+  background: grey;
+  opacity: .5;
+}
+
+#cssmenu ul li.last > a:after,
+#cssmenu ul li:last-child > a:after {
+  display: none;
+}
+
+#cssmenu ul li a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: #333333;
+  -webkit-transition: width .25s;
+  -moz-transition: width .25s;
+  -ms-transition: width .25s;
+  -o-transition: width .25s;
+  transition: width .25s;
+}
+
+#cssmenu ul li a:hover {
+  color: #333333;
+}
+#cssmenu ul li a:hover:before {
+  width: 100%;
+}
+
+
+#cssmenu ul li.active a span {
+  color: #aaaaaa;
+}
+
+#cssmenu ul li#dev a span {
+  color: #ffaaaa;
+}
+
+
+
+#cssmenu ul li.active a:before {
+	color: red;
+ /* width: 100%; */
+}
+
+.submenu *{
+    font-size: 10px !important;
+}
+
+@media screen and (max-width: 768px) {
+  #cssmenu ul li {
+    float: none;
+    display: block;
+  }
+  #cssmenu ul li a {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-bottom: 1px solid #fb998c;
+  }
+  #cssmenu ul li.last > a,
+  #cssmenu ul li:last-child > a {
+    border: 0;
+  }
+  #cssmenu ul li a:after {
+    display: none;
+  }
+  #cssmenu ul li a:before {
+    display: none;
+  }
+
+}

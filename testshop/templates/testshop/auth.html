@@ -1,0 +1,16 @@
+<div id="login-wrap">
+
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'auth:logout' %}?next=/">
+        {% csrf_token %}
+        <input type="submit" name="logout" value="Выход" class="ptserif"/>
+    </form>
+    {% else %}
+    <form method="post" action="{% url 'auth:login' %}?next=/">
+        {% csrf_token %}
+        <input type="text" placeholder="Имя пользователя" name="username" maxlength="30" id="id_username" class="ptserif"/>
+        <input type="password" placeholder="Пароль" name="password" id="id_password" class="ptserif"/>
+        <input type="submit" name="login" value="Вход" class="ptserif"/>
+    </form>
+    {% endif %}
+</div>

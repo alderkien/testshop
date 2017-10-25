@@ -5,8 +5,8 @@ from django.core.files.storage import FileSystemStorage
 
 
 class Product(models.Model):
-	name=models.CharField(max_length=200, null=True)
-	description=models.TextField()
+	name=models.CharField(max_length=200)
+	description=models.TextField(null=True)
 	create_timestamp=models.DateField(auto_now_add=True)
 	update_timestamp=models.DateField(auto_now=True)
 	def __str__(self):
@@ -15,7 +15,7 @@ class Product(models.Model):
 
 
 class Picture(models.Model):
-	name=models.CharField(max_length=100, null=True)
+	name=models.CharField(max_length=100)
 	picfile=models.FileField(upload_to='pics',storage=FileSystemStorage())
 	product = models.ForeignKey(
 				'Product',
