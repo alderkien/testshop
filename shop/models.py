@@ -6,7 +6,7 @@ from django.core.files.storage import FileSystemStorage
 
 class Product(models.Model):
 	name=models.CharField(max_length=200)
-	description=models.TextField(null=True)
+	description=models.TextField(blank=True)
 	create_timestamp=models.DateField(auto_now_add=True)
 	update_timestamp=models.DateField(auto_now=True)
 	def __str__(self):
