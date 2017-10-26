@@ -34,8 +34,9 @@
             {% block menu %}
             <div id='cssmenu'>
               <ul>
-                <li {% if request.path == "/list" %} class="active" {% endif %}><a href=/list><span>Список товаров</span></a></li>
-                 <li {% if request.path == "/create" %} class="active" {% endif %}><a href=/create><span>Добавить товар</span></a></li>
+                <li {% if request.path == "/list/" %} class="active" {% endif %}><a href=/list/><span>Список товаров</span></a></li>
+                 <li {% if request.path == "/create/" %} class="active" {% endif %}><a href=/create/><span>Добавить товар</span></a></li>
+                 <li {% if request.path == "/admin/" %} class="active" {% endif %}><a href=/admin/><span>Админ</span></a></li>
               </ul>
               <hr class="delim">
             </div>

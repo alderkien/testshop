@@ -2,6 +2,10 @@
 {% block content %}
 <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
+    {{ files.management_form }}
+    {% for pic in files %}
+    	{{ pic.as_p }}
+    {% endfor%}
     <input type="submit" value="Save" />
 </form>
 {% endblock%}

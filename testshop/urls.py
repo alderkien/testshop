@@ -18,12 +18,19 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.contrib import admin
-from shop.views import Products,ProductCreate
+from shop.views import Products
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('shop.urls')),
+    url(r'^$', Products.as_view()),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()
+
+if settings.DEBUG:
+	import debug_toolbar
+	urlpatterns = [
+		url(r'^__debug__/', include(debug_toolbar.urls)),
+	] + urlpatterns
