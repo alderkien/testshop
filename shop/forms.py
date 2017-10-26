@@ -9,9 +9,8 @@ class ProductForm(forms.ModelForm):
 
 class PictureForm(forms.ModelForm):
 	model = Picture
-	fields = ['name','picfile']
 
 
 ProductWithPicFormSet = inlineformset_factory(Product, Picture,
-                                            form=PictureForm, fields=['name','picfile'], extra=1)
+                                            form=PictureForm,exclude=[], extra=1)
 

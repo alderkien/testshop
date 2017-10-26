@@ -24,18 +24,18 @@ class ProductCreate(CreateView):
 	def get_context_data(self, **kwargs):
 		data = super(ProductCreate, self).get_context_data(**kwargs)
 		if self.request.POST:
-			data['files'] = ProductWithPicFormSet(self.request.POST)
+			data['pics'] = ProductWithPicFormSet(self.request.POST)
 		else:
-			data['files'] = ProductWithPicFormSet()
+			data['pics'] = ProductWithPicFormSet()
 		return data
 
 	def form_valid(self, form):
 		context = self.get_context_data()
-		files = context['files']
+		pics = context['pics']
 		with transaction.atomic():
 			self.object = form.save()
-		if files.is_valid():
-			files.product = self.object
-			files.save()
+		if pics.is_valid():
+			pics.product = self.object
+			pics.save()
 
 		return super(ProductCreate, self).form_valid(form)
