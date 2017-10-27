@@ -16,7 +16,7 @@ class Product(models.Model):
 
 class Picture(models.Model):
 	name=models.CharField(max_length=100,blank=True)
-	picfile=models.FileField(upload_to='pics',storage=FileSystemStorage())
+	picfile=models.ImageField(upload_to='pics',storage=FileSystemStorage())
 	product = models.ForeignKey(
 				'Product',
 				on_delete=models.CASCADE,

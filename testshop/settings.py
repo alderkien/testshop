@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'testshop',
     'shop',
+    'easy_thumbnails',
     'debug_toolbar',
 ]
 
@@ -52,6 +53,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'ico': {'size': (50, 50), 'crop': True},
+    },
+}
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
@@ -76,6 +83,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
+
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -163,3 +171,4 @@ STATICFILES_FINDERS = [
 ]
 
 LOGIN_URL = '/' 
+

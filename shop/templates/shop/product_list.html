@@ -1,13 +1,30 @@
 {% extends 'testshop/site.html' %}
+{% load thumbnail %}
 {% block content %}
 <ul>
 {% for product in object_list %}
     <li>{{ product.name }}</li>
     {% for pic in product.pics.all %}
-    	<img src=/media/{{ pic.picfile }}>
+    		<img src="{{ pic.picfile|thumbnail_url:'ico' }}" alt="" />
     {% endfor %}
+    
 {% empty %}
     <li>No products yet.</li>
 {% endfor %}
+{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/list?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/list?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
 </ul>
 {% endblock%}

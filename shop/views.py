@@ -14,6 +14,10 @@ def index(request):
 
 class Products(ListView):
 	model = Product
+	paginate_by=5
+
+	def get_queryset(self):
+		return Product.objects.prefetch_related('pics').all()
 
 class ProductCreate(CreateView):
 
