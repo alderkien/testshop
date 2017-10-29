@@ -3,15 +3,25 @@ from django.db import transaction
 from django.shortcuts import redirect
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView,UpdateView
+from django.http import HttpResponse
+import json
+
 
 from .forms import ProductWithPicFormSet
 from .models import *
 
-
+class AjaxableResponseMixin(object):
+	def render_to_json_response(self, context, **response_kwargs):
+		data = json.dumps(context)
+		response_kwargs['content_type'] = 'application/json'
+		return HttpResponse(data, **response_kwargs)
 
 
 def index(request):
 	return render(request, 'testshop/site.html',)
+
+
+
 
 class Products(ListView):
 	model = Product
@@ -20,11 +30,21 @@ class Products(ListView):
 	def get_queryset(self):
 		return Product.objects.prefetch_related('pics').all()
 
-class ProductCreate(CreateView):
+class ProductCreate(CreateView,AjaxableResponseMixin):
 
 	model = Product
 	fields = ['name','description']
 	success_url='/list/'
+
+	def post(self, request, *args, **kwargs): 
+		if (self.request.is_ajax()):
+			context_dict = {
+				'result': 'ok',
+				'tmpfile': '/media/pics/1415640644854_3N08JPQ.jpg.50x50_q85_crop.jpg',
+			}
+			return self.render_to_json_response(context_dict)
+		else:
+			return super(CreateView,self).post(self, request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		data = super(ProductCreate, self).get_context_data(**kwargs)
@@ -51,6 +71,16 @@ class ProductUpdate(UpdateView):
 	model = Product
 	fields = ['name','description']
 	success_url='/list/'
+
+	def post(self, request, *args, **kwargs): 
+		if (self.request.is_ajax()):
+			context_dict = {
+				'result': 'ok',
+				'tmpfile': '/media/pics/1415640644854_3N08JPQ.jpg.50x50_q85_crop.jpg',
+			}
+			return self.render_to_json_response(context_dict)
+		else:
+			return super(UpdateView,self).post(self, request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		data = super(ProductUpdate, self).get_context_data(**kwargs)

@@ -3,7 +3,7 @@
 {% block content %}
 <ul>
 {% for product in object_list %}
-    <li>{{ product.name }}</li>
+    <li>{{ product.name }} <a href=/update/{{ product.pk }}/>Update</a></li>
     {% for pic in product.pics.all %}
     		<img src="{{ pic.picfile|thumbnail_url:'ico' }}" alt="" />
     {% endfor %}

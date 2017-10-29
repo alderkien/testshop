@@ -4,15 +4,15 @@
      {% load static %}
     <meta name="keywords" content="">
     {% block blockdd %}
-        <!-- <script type="text/javascript" src="/static/js/jquery-3.2.1.min.js"></script> -->
-       
     {% endblock %}
     {% block css %}
         <link rel="stylesheet" href="{% static "css/styles.css"%}"  type="text/css">
         <link rel="stylesheet" href="{% static "css/print.css"%}" media="print"  type="text/css">
     {% endblock %}
     {% block js %}
-
+        <script type="text/javascript" src="/static/js/jquery.js"></script> 
+    {% endblock %}
+    {% block customjs %}
 
     {% endblock %}
   </head>
