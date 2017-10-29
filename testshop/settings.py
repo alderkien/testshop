@@ -164,6 +164,8 @@ STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, "files/static"),
     '/home/al/localhost/django/testshop/files/static/',
 ]
+
+
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',

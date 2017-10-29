@@ -4,9 +4,10 @@ function init(){
 	$(document).on('change','.fileAjaxUpload',function(e){
         e.stopPropagation();
         var fileButton=$(this);
-        var formData = new FormData(fileButton);
+        var formData = new FormData();
         var csrftoken = $("[name=csrfmiddlewaretoken]").val();
         formData.append('csrfmiddlewaretoken',csrftoken);
+        formData.append('img',fileButton.prop('files')[0])
         $.ajax({
             url: "",
             type: 'POST',
@@ -14,7 +15,6 @@ function init(){
             contentType:"multipart/form-data",
             datatype:'json',
             success: function (data) {
-                alert(data['tmpfile']);
                 $(fileButton).after('<img style="width: 50px; height: 50px;" src="'+data['tmpfile']+'">');
             },
             error: function (data) {
