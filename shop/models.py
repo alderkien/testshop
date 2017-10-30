@@ -1,7 +1,15 @@
 from django.db import models
+from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-
+from .validators import *
+from django.db.models.signals import pre_save, pre_delete
+from django.dispatch import receiver
+import pdb
 # Create your models here.
+
+
+
+from .storages import AjaxTmpPreloadStorage
 
 
 class Product(models.Model):
@@ -16,7 +24,7 @@ class Product(models.Model):
 
 class Picture(models.Model):
 	name=models.CharField(max_length=100,blank=True)
-	picfile=models.ImageField(upload_to='pics',storage=FileSystemStorage())
+	picfile=models.ImageField(upload_to='pics',storage=FileSystemStorage(),blank=True)
 	product = models.ForeignKey(
 				'Product',
 				on_delete=models.CASCADE,
@@ -24,3 +32,9 @@ class Picture(models.Model):
 	)
 	def __str__(self):
 		return str(self.name)
+
+
+
+@receiver(pre_save, sender=Picture)
+def my_handler(sender,instance,**kwargs):
+	pass
