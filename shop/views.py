@@ -83,6 +83,7 @@ class ProductCreate(CreateView,AjaxableResponseMixin):
 	def get_context_data(self, **kwargs):
 		data = super(ProductCreate, self).get_context_data(**kwargs)
 		if self.request.POST:
+			print(self.request.FILES)
 			data['pics'] = ProductWithPicFormSet(self.request.POST,self.request.FILES)
 		else:
 			data['pics'] = ProductWithPicFormSet()

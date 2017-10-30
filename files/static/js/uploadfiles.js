@@ -16,7 +16,8 @@ function init(){
             datatype:'json',
             success: function (data) {
                 $('#picprew_'+fileButton.attr('id')).remove();
-                $(fileButton).after('<img id="picprew_'+fileButton.attr('id')+'"style="width: 50px; height: 50px;" src="'+data['tmpfile']+'">');
+                $(fileButton).val('');
+                $(fileButton).after('<span id="picprew_'+fileButton.attr('id')+'"><input type=hidden name="'+fileButton.attr('name')+'" value="'+data['tmpfile']+'"><img style="width: 50px; height: 50px;" src="'+data['tmpfile']+'"></span>');
             },
             error: function (data) {
                 alert("Ошибка загрузки");
