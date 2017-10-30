@@ -15,7 +15,8 @@ function init(){
             contentType:"multipart/form-data",
             datatype:'json',
             success: function (data) {
-                $(fileButton).after('<img style="width: 50px; height: 50px;" src="'+data['tmpfile']+'">');
+                $('#picprew_'+fileButton.attr('id')).remove();
+                $(fileButton).after('<img id="picprew_'+fileButton.attr('id')+'"style="width: 50px; height: 50px;" src="'+data['tmpfile']+'">');
             },
             error: function (data) {
                 alert("Ошибка загрузки");
