@@ -6,7 +6,14 @@
 <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
     {{ form.as_p }}
-    {{ pics.as_p }}
+    <div id="form_set">
+    	{{ pics.as_p }}
+	</div>
+	<input type="button" value="add Picture" id="add_more"><br>
     <input type="submit" value="Save" />
 </form>
+
+<div id="empty_form" style="display:none">
+        {{ pics.empty_form.as_p }}
+</div>
 {% endblock%}

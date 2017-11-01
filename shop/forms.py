@@ -1,14 +1,10 @@
 from django import forms
 from django.forms.models import inlineformset_factory
-from django.core.files import File
-from django.forms import ImageField
 from .models import Product,Picture
 from .validators import *
-from .storages import TmpStorage
-from django.core.files.images import ImageFile
+from .storages import TmpStorage,PicsStorage
 import shutil
 import pdb
-
 
 class PictureForm(forms.ModelForm):
 	picfile_str=forms.CharField(widget = forms.HiddenInput(), required = False)
@@ -24,9 +20,11 @@ class PictureForm(forms.ModelForm):
 			raise forms.ValidationError('Хоть как-то картинка должна передаться')
 		elif picfile_str:
 			ts=TmpStorage()
-			fl=ts.path(picfile_str)
-			shutil.move(fl,os.path.join(settings.MEDIA_ROOT+'pics/',picfile_str))
-			self.cleaned_data['picfile']='pics/'+picfile_str
+			ps=PicsStorage()
+			#pdb.set_trace()
+			picfile=ps.save(picfile_str,ts.open(picfile_str))
+			ts.delete(picfile_str)
+			self.cleaned_data['picfile']=picfile
 
 		return self.cleaned_data
 
@@ -37,5 +35,5 @@ class PictureForm(forms.ModelForm):
 		model = Picture
 		fields = ['name', 'picfile', 'product','picfile_str']
 
-ProductWithPicFormSet = inlineformset_factory(Product, Picture,form=PictureForm,fields=['name', 'picfile', 'product','picfile_str'])
+ProductWithPicFormSet = inlineformset_factory(Product, Picture,form=PictureForm,fields=['name', 'picfile', 'product','picfile_str'],extra=1)
 

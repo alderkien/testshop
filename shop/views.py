@@ -18,18 +18,28 @@ from .models import *
 
 
 
-class AjaxableResponseMixin(object):
+def index(request):
+	return render(request, 'testshop/site.html',)
+
+
+class ImgPreloadMixin(object):
 	def render_to_json_response(self, context, **response_kwargs):
 		data = json.dumps(context)
 		response_kwargs['content_type'] = 'application/json'
 		return HttpResponse(data, **response_kwargs)
 
-
-def index(request):
-	return render(request, 'testshop/site.html',)
-
-
-
+	def ajaxImgLoad(self, request, *args, **kwargs):
+		myfile = request.FILES['img']
+		fs = TmpStorage()
+		filename = fs.save(myfile.name, myfile)
+		uploaded_file_url = fs.url(filename)
+		context_dict = {
+			'result': 'ok',
+			'path':fs.url(''),
+			'tmpfile': filename,
+		}
+		return self.render_to_json_response(context_dict)
+		
 
 class Products(ListView):
 	model = Product
@@ -38,7 +48,7 @@ class Products(ListView):
 	def get_queryset(self):
 		return Product.objects.prefetch_related('pics').all()
 
-class ProductCreate(CreateView,AjaxableResponseMixin):
+class ProductCreate(CreateView,ImgPreloadMixin):
 
 	model = Product
 	fields = ['name','description']
@@ -46,56 +56,22 @@ class ProductCreate(CreateView,AjaxableResponseMixin):
 
 	def post(self, request, *args, **kwargs): 
 		if (self.request.is_ajax()):
-			files = request.FILES
-			myfile = request.FILES['img']
-			fs = TmpStorage()
-			filename = fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.url(filename)
-			context_dict = {
-				'result': 'ok',
-				'path':fs.url(''),
-				'tmpfile': filename,
-			}
-			return self.render_to_json_response(context_dict)
+			return self.ajaxImgLoad(request, *args, **kwargs)
 		else:
-				
 			return super(CreateView,self).post(self, request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		data = super(ProductCreate, self).get_context_data(**kwargs)
-
 		if self.request.POST:
-			"""
-			if(self.request.POST['pics-0-picfile']):
-				print(settings.BASE_DIR)
-				#fi=os.path.join(settings.BASE_DIR, self.request.POST['pics-0-picfile'])
-				fi=settings.BASE_DIR+'/files'+self.request.POST['pics-0-picfile']
-				print(fi)
-				if os.path.exists(fi):
-					tf=File(open(fi, 'w'))
-					suf=UploadedFile(fi,'some','image/png')
-					print('that file')
-					print(tf)
-					self.request.FILES['pics-0-picfile']=suf
-					print(self.request.FILES)
-			
-			
-			for x in self.request.FILES:
-				pprint.pprint(self.request.FILES[x])
-				for y in self.request.FILES[x]:
-					#pprint.pprint(y)
-					pass
-			"""		
 			data['pics'] = ProductWithPicFormSet(self.request.POST,self.request.FILES)
 		else:
 			data['pics'] = ProductWithPicFormSet()
 		return data
 
 	def form_valid(self, form):
-		
 		context = self.get_context_data()
 		formset = context['pics']
-		#pdb.set_trace()
+		
 		if formset.is_valid():
 			self.object = form.save()
 			formset.instance = self.object
@@ -105,7 +81,7 @@ class ProductCreate(CreateView,AjaxableResponseMixin):
 			return self.render_to_response(self.get_context_data(form=form))
 
 
-class ProductUpdate(UpdateView):
+class ProductUpdate(UpdateView,ImgPreloadMixin):
 
 	model = Product
 	fields = ['name','description']
@@ -113,16 +89,7 @@ class ProductUpdate(UpdateView):
 
 	def post(self, request, *args, **kwargs): 
 		if (self.request.is_ajax()):
-			files = request.FILES
-			myfile = request.FILES['img']
-			fs = TmpStorage()
-			filename = fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.url(filename)
-			context_dict = {
-				'result': 'ok',
-				'tmpfile': uploaded_file_url,
-			}
-			return self.render_to_json_response(context_dict)
+			return self.ajaxImgLoad(request, *args, **kwargs)
 		else:
 			return super(UpdateView,self).post(self, request, *args, **kwargs)
 

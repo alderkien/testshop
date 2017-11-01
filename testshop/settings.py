@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
-
+THUMBNAIL_BASEDIR='thumbnail'
 THUMBNAIL_ALIASES = {
     '': {
         'ico': {'size': (50, 50), 'crop': True},

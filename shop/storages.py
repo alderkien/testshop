@@ -3,11 +3,10 @@ from django.conf import settings
 from datetime import datetime
 import os
 
-class AjaxTmpPreloadStorage(FileSystemStorage):
-	def get_available_name(self, name, max_length=100):
-		if self.exists(name):
-			os.remove(os.path.join(settings.MEDIA_ROOT, name))
-		return name
+
+class PicsStorage(FileSystemStorage):
+	location=settings.MEDIA_ROOT+'/pics'
+	base_url=settings.MEDIA_URL+'pics/'
 
 class TmpStorage(FileSystemStorage):
 	location=settings.MEDIA_ROOT+'/tmp'
